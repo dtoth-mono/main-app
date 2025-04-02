@@ -13,7 +13,7 @@ jobs:
         run: |
           curl -X POST -H "Authorization: token ${{ secrets.PLAYWRIGHT_TEST_REPO_TOKEN }}" \
                -H "Accept: application/vnd.github.v3+json" \
-               https://api.github.com/repos/<your-playwright-repo-owner>/<your-playwright-repo>/actions/workflows/playwright-tests.yml/dispatches \
+               https://api.github.com/repos/dtoth-mono/playwright-suite/actions/workflows/playwright.yml/dispatches \
                -d '{
                  "ref": "main",
                  "inputs": {
