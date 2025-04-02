@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple App</title>
+</head>
+
+<body>
+  <h1>Welcome to My Simple App</h1>
+  <button id="fetch-message">Fetch API Message</button>
+  <p id="message"></p>
+
+  <script>
+    document.getElementById("fetch-message").addEventListener("click", async () => {
+      const response = await fetch("/api/hello");
+      const data = await response.json();
+      document.getElementById("message").textContent = data.message;
+    });
+  </script>
+</body>
+
+</html>
