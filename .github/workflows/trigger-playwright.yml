@@ -44,10 +44,11 @@ jobs:
           cd test-suite
           PLAYWRIGHT_JSON_OUTPUT_FILE=results.json npx playwright test --reporter=json
           exit_code=$?
+
           if [ $exit_code -ne 0 ]; then
-            echo "TEST_FAILED=true" >> $GITHUB_OUTPUT
+            echo "failed=true" >> $GITHUB_OUTPUT
           else
-            echo "TEST_FAILED=false" >> $GITHUB_OUTPUT
+            echo "failed=false" >> $GITHUB_OUTPUT
           fi
           exit $exit_code
 
@@ -63,6 +64,9 @@ jobs:
           add-comment: true
           job-summary: true
 
+      - name: Debug
+        run: echo ${{ steps.playwright_tests.outputs.failed }}
+
       - name: Upload HTML report as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -70,7 +74,7 @@ jobs:
           path: playwright-report/**
 
       - name: Fail The Workflow if tests failed
-        if: ${{ steps.playwright_tests.TEST_FAILED == 'true'}}
+        if: ${{ steps.playwright_tests.outputs.failed}} == 'true'
         uses: actions/github-script@v3
         with:
           script: |
